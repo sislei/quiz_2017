@@ -218,7 +218,7 @@ exports.randomplay = function (req, res, next) {
 	score = req.session.score;
 	req.session.score = undefined;
 	res.render('quizzes/random_nomore',{
-		score: score,
+		score: score
 	})
 	return;
     }
@@ -227,7 +227,7 @@ exports.randomplay = function (req, res, next) {
 	.then(function (question) {
 	res.render('quizzes/random_play',{
 		quiz: question,
-		score: req.session.score,
+		score: req.session.score
 		})
 	})
 	.catch(function (error) {
@@ -243,7 +243,7 @@ exports.randomcheck = function (req, res, next) {
 	if(result){
         	req.session.score += 1;
 	} else {
-		req.session.score = 0;;
+		req.session.score = 0;
 	}
 
 	res.render('quizzes/random_result', {
