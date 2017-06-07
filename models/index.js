@@ -25,6 +25,13 @@ var sequelize = new Sequelize(url, {storage: storage});
 
 // Importar la definicion de la tabla Quiz de quiz.js
 var Quiz = sequelize.import(path.join(__dirname, 'quiz'));
+sequelize.sync()
+.then(function(){
+    console.log("DB creada");
+})
+    .catch(function(err){
+        console.log("DB error");
+})
 
 
 // Importar la definicion de la tabla Tips de tips.js
@@ -42,6 +49,8 @@ Quiz.hasMany(Tip);
 User.hasMany(Quiz, {foreignKey: 'AuthorId'});
 Quiz.belongsTo(User, {as: 'Author', foreignKey: 'AuthorId'});
 
+User.hasMany(Tip, {foreignKey: 'AuthorId'});
+Tip.belongsTo(User, {as: 'Author', foreignKey: 'AuthorId'});
 
 exports.Quiz = Quiz; // exportar definición de tabla Quiz
 exports.Tip = Tip;   // exportar definición de tabla Tips
